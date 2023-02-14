@@ -14,6 +14,8 @@ import com.itheima.service.SetmealService;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -87,6 +89,8 @@ public class SetMealDishController {
      * @return
      */
     @PostMapping
+    //将一条或多条数据从缓存中删除,新增或删除或修改时，需要将套餐下的所有缓存数据删除
+    @CacheEvict(value = "setmealCache",allEntries = true)
     public R<String> saveWithDish(@RequestBody SetmealDto setmealDto){
         setmealService.saveWithDish(setmealDto);
         return R.success("新增套餐成功!");
@@ -97,6 +101,8 @@ public class SetMealDishController {
      * @return
      */
     @DeleteMapping
+    //将一条或多条数据从缓存中删除,新增或删除或修改时，需要将套餐下的所有缓存数据删除
+    @CacheEvict(value = "setmealCache",allEntries = true)
     public R<String> delete(@RequestParam List<Long> ids){
         setmealService.removeWithDish(ids);
         return R.success("套餐删除成功!");
@@ -107,6 +113,8 @@ public class SetMealDishController {
      * @return
      */
     @GetMapping("/list")
+    //在方法执行前spring先查看缓存中是否有数据，如果有数据，则直接返回缓存数据；
+    @Cacheable(value = "setmealCache",key = "#setmeal.categoryId + '_' + #setmeal.id")
     public R<List<Setmeal>> list(Setmeal setmeal){
         //根据CategoryId和status查询
         LambdaQueryWrapper<Setmeal> setmealLambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -135,6 +143,8 @@ public class SetMealDishController {
      * @return
      */
     @PutMapping
+    //将一条或多条数据从缓存中删除,新增或删除或修改时，需要将套餐下的所有缓存数据删除
+    @CacheEvict(value = "setmealCache",allEntries = true)
     public R<String> update(@RequestBody SetmealDto setmealDto){
         setmealService.updateWithDish(setmealDto);
         return R.success("修改成功!");
