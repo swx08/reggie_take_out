@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * ClassName:OrderController
  * Package:com.itheima.controller
@@ -55,5 +57,14 @@ public class OrderController {
         //分页查询
         orderService.page(pageInfo,ordersLambdaQueryWrapper);
         return R.success(pageInfo);
+    }
+
+    /**
+     * 获取历史订单
+     * @return
+     */
+    @GetMapping("/userPage")
+    public R<String> getOldOrders(){
+        return R.success("功能尚未开发完成，请等待!");
     }
 }
