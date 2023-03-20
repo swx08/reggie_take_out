@@ -1,5 +1,5 @@
-项目访问路径：后台：http://8.130.108.52:8081/backend/page/login/login.html
-             前台：http://8.130.108.52:8081/front/page/login.html
+项目访问路径：后台：http://82.157.234.124:8081/backend/page/login/login.html
+             前台：http://82.157.234.124:8081/front/page/login.html
 
 产品原型:瑞吉外卖后台(管理端)
         瑞吉外卖前台(用户端)
